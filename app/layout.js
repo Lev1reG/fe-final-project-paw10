@@ -1,10 +1,30 @@
 import { twMerge } from "tailwind-merge";
+import localFont from "next/font/local";
 import "./globals.css";
-import { Lato } from "next/font/google";
 
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
+const lato = localFont({
+  src: [
+    {
+      path: "/fonts/Lato-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "/fonts/Lato-Medium.woff",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "/fonts/Lato-Semibold.woff",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "/fonts/Lato-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata = {
