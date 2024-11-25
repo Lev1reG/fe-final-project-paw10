@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         <main
           className={twMerge(
             "flex flex-col",
-            "w-[100vw] h-[100vh]",
+            "w-[100vw]",
           )}
         >
           <NavBar />

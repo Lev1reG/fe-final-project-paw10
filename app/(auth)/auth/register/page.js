@@ -1,9 +1,20 @@
-'use client'; // Tambahkan ini jika menggunakan App Directory
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { RegisterUser } from "@/db/authentication";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [passwordVisible1, setPasswordVisible1] = useState(false);
   const [passwordVisible2, setPasswordVisible2] = useState(false);
 
@@ -15,8 +26,34 @@ export default function Home() {
     setPasswordVisible2(!passwordVisible2);
   };
 
+  const onSubmit = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      toast.error("Password and confirm password must be the same");
+      return;
+    }
+
+    try {
+      await toast.promise(RegisterUser(data), {
+        loading: "Registering...",
+        success: "Register success",
+        error: (err) => {
+          if (err.response && err.response.data && err.response.data.message) {
+            return `Error: ${err.response.data.message}`;
+          } else {
+            return `Error: ${err.message}`;
+          }
+        },
+      });
+
+      // Redirect to login page after success
+      router.push("/auth/login");
+    } catch (err) {
+      // Additional error handling if needed
+    }
+  };
+
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-[#F5EFEA]">
+    <div className="w-screen min-h-screen flex items-center justify-center p-28 bg-[#F5EFEA]">
       {/* Container */}
       <div className="w-full max-w-4xl h-full lg:h-auto flex flex-col lg:flex-row bg-white shadow-lg rounded-lg">
         {/* Left Section - Image */}
@@ -35,7 +72,10 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 text-gray-800 text-center">
             Sign Up
           </h1>
-          <form className="w-full max-w-lg mx-auto">
+          <form
+            className="w-full max-w-lg mx-auto"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {/* Name Field */}
             <div className="mb-4">
               <label
@@ -47,9 +87,15 @@ export default function Home() {
               <input
                 type="text"
                 id="name"
+                {...register("name", { required: "Name is required" })}
                 className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                 placeholder="Enter your name"
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             {/* Email Field */}
@@ -63,9 +109,21 @@ export default function Home() {
               <input
                 type="email"
                 id="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                })}
                 className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                 placeholder="Enter your email"
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Phone Field */}
@@ -79,9 +137,21 @@ export default function Home() {
               <input
                 type="tel"
                 id="phone"
+                {...register("phone", {
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^\d{10,15}$/,
+                    message: "Invalid phone number",
+                  },
+                })}
                 className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                 placeholder="Enter your phone"
               />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
             {/* Username Field */}
@@ -95,9 +165,15 @@ export default function Home() {
               <input
                 type="text"
                 id="username"
+                {...register("username", { required: "Username is required" })}
                 className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                 placeholder="Enter your username"
               />
+              {errors.username && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.username.message}
+                </p>
+              )}
             </div>
 
             {/* Password Field */}
@@ -110,8 +186,15 @@ export default function Home() {
               </label>
               <div className="relative">
                 <input
-                  type={passwordVisible1 ? 'text' : 'password'}
+                  type={passwordVisible1 ? "text" : "password"}
                   id="password"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters long",
+                    },
+                  })}
                   className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                   placeholder="Enter your password"
                 />
@@ -121,13 +204,20 @@ export default function Home() {
                   className="absolute right-4 top-3"
                 >
                   <Image
-                    src={passwordVisible1 ? '/images/pw1.png' : '/images/pw.png'}
-                    alt={passwordVisible1 ? 'Hide password' : 'Show password'}
+                    src={
+                      passwordVisible1 ? "/images/pw1.png" : "/images/pw.png"
+                    }
+                    alt={passwordVisible1 ? "Hide password" : "Show password"}
                     width={24}
                     height={24}
                   />
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Confirm Password Field */}
@@ -140,8 +230,11 @@ export default function Home() {
               </label>
               <div className="relative">
                 <input
-                  type={passwordVisible2 ? 'text' : 'password'}
+                  type={passwordVisible2 ? "text" : "password"}
                   id="confirm-password"
+                  {...register("confirmPassword", {
+                    required: "Confirm password is required",
+                  })}
                   className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
                   placeholder="Confirm your password"
                 />
@@ -151,13 +244,20 @@ export default function Home() {
                   className="absolute right-4 top-3"
                 >
                   <Image
-                    src={passwordVisible2 ? '/images/pw1.png' : '/images/pw.png'}
-                    alt={passwordVisible2 ? 'Hide password' : 'Show password'}
+                    src={
+                      passwordVisible2 ? "/images/pw1.png" : "/images/pw.png"
+                    }
+                    alt={passwordVisible2 ? "Hide password" : "Show password"}
                     width={24}
                     height={24}
                   />
                 </button>
               </div>
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
             {/* Sign Up Button */}
