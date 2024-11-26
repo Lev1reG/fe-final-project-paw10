@@ -4,11 +4,22 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
-export default function BookCard({ title, author, stock, imageUrl, bookId }) {
+export default function BookCard({
+  title,
+  author,
+  stock,
+  imageUrl,
+  bookId,
+  isDashboard,
+}) {
   const router = useRouter();
 
   const handleBookClick = () => {
-    router.push(`/book/${bookId}`);
+    if (isDashboard) {
+      router.push(`/dashboard/edit`);
+    } else {
+      router.push(`/book/${bookId}`);
+    }
   };
 
   return (
@@ -19,8 +30,8 @@ export default function BookCard({ title, author, stock, imageUrl, bookId }) {
         "min-w-72",
         "bg-white shadow-md rounded-lg p-4",
         "border border-secondary",
-        "cursor-pointer",
-        "hover:bg-gray-100",
+        isDashboard ? "" : "cursor-pointer",
+        isDashboard ? "" : "hover:bg-gray-100",
       )}
     >
       {/* Book Cover */}
@@ -36,10 +47,25 @@ export default function BookCard({ title, author, stock, imageUrl, bookId }) {
       </div>
 
       {/* Book Info */}
-      <div className="text-center">
+      <div className="relative text-left">
         <p className="text-lg font-bold text-gray-800">{title}</p>
         <p className="text-sm font-semibold text-gray-600">{author}</p>
         <p className="text-sm text-gray-500">Stock: {stock}</p>
+        {isDashboard && (
+          <div className={twMerge("absolute bottom-0 right-0", "mt-5")}>
+            <button
+              type="submit"
+              className={twMerge(
+                "flex justify-center items-center",
+                "py-1 px-3 rounded-lg border-black",
+                "bg-accent hover:opacity-80",
+                "font-bold text-sm text-white",
+              )}
+            >
+              Edit
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
