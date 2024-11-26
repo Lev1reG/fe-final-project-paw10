@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import FilterSidebar from "@/app/components/FilterSidebar";
-import BookCard from "@/app/components/BookCard";
+import FilterSidebar from "@/components/FilterSidebar";
+import BookCard from "@/components/BookCard";
 
 export default function BookPage() {
   // Initialize filters state
