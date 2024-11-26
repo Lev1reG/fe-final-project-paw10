@@ -1,6 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tugas Akhir PAW Kelompok 10 2024
 
-## Getting Started
+## Team Member
+
+1. Deren Tanaphan (22/503261/TK/54976)
+2. Aisa Selvira Q.A (22/498561/TK/54690)
+3. Moh. Nazril Ilham (22/493142/TK/54000)
+4. Muhammad Rafli Ramadani (22/497787/TK/54571)
+5. Satama Safika (22/492880/TK/53955)
+
+## Overview Aplikasi BookNest 📖
+
+BookNest adalah aplikasi manajemen perpustakaan berbasis web yang dirancang dengan dua peran pengguna: admin dan peminjam/pengunjung. Admin memiliki kemampuan untuk menambah dan memperbarui data buku, sementara peminjam dapat mencari, meminjam, dan mengembalikan buku. Aplikasi ini juga dilengkapi dengan fitur pencarian buku yang canggih, pembaruan ketersediaan buku secara real-time, serta antarmuka yang user-friendly, untuk mempermudah pengelolaan perpustakaan dan meningkatkan pengalaman pengguna.
+
+## Pembagian Tugas 📋
+
+1. Deren Tanaphan => UI, Front end, dan Back end
+2. Aisa Selvira Q.A => UI dan Front end
+3. Moh. Nazril Ilham => UI dan Front end
+4. Muhammad Rafli Ramadani => UI dan Front end
+5. Satama Safika => UI dan Front end
+
+## Getting Started 💻
 
 First, run the development server:
 
@@ -12,13 +32,9 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
+````
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Learn More
 
@@ -34,3 +50,46 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## Teknologi 🌐
+![Tools](Tools.png)
+
+##  Link Deploy BookNest 🔗
+
+
+##  Link Penting 🔗
+
+Link Video =>
+
+Link PPT =>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
