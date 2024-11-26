@@ -1,95 +1,108 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import BookCard from "@/components/BookCard";
 import FilterSidebar from "@/components/FilterSidebar";
+import { Loading } from "@/components/all-pages/loading";
+import { ErrorPage } from "@/components/all-pages/error-page";
+import { SearchBooks } from "@/db/books";
 
 export default function BookPage() {
-  // Initialize filters state
-  const [filters, setFilters] = useState({
-    genre: "all", // Default value
-    language: "all", // Default value
-    onlyAvailable: false, // Default value
-  });
+  const [booksData, setBooksData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Sample data for books (replace with actual data)
-  const dummyBooks = [
-    {
-      title: "Book Title 1",
-      author: "Author 1",
-      stock: 10,
-      imageUrl: "/images/book1.jpg",
-    },
-    {
-      title: "Book Title 2",
-      author: "Author 2",
-      stock: 5,
-      imageUrl: "/images/book2.jpg",
-    },
-    {
-      title: "Book Title 3",
-      author: "Author 3",
-      stock: 3,
-      imageUrl: "/images/book3.jpg",
-    },
-    {
-      title: "Book Title 4",
-      author: "Author 4",
-      stock: 8,
-      imageUrl: "/images/book4.jpg",
-    },
-    {
-      title: "Book Title 5",
-      author: "Author 5",
-      stock: 6,
-      imageUrl: "/images/book5.jpg",
-    },
-    {
-      title: "Book Title 6",
-      author: "Author 6",
-      stock: 7,
-      imageUrl: "/images/book6.jpg",
-    },
-  ];
+  const [filters, setFilters] = useState({
+    title: "",
+    genre: "",
+    language: "",
+    available: false,
+    author: "",
+  });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getBooks = async () => {
+      try {
+        const books = await SearchBooks(currentPage, 6, filters);
+        setBooksData(books);
+        setTotalPages(books.pagination.totalPages);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getBooks();
+  }, [currentPage, filters]);
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorPage message={error.message} />;
+  }
 
   return (
-    <div className={twMerge("w-full min-h-screen bg-[#F9F6EE] p-8")}>
-      {" "}
-      {/* Set the background color and padding */}
-      <div className="flex flex-row gap-8 justify-between">
-        {/* Left side: Filters */}
-        <div className="w-full sm:w-1/4 mb-8">
+    <div
+      className={twMerge(
+        "w-full min-h-screen flex justify-center items-center bg-[#F9F6EE] py-28 px-8",
+      )}
+    >
+      <div className={twMerge("w-11/12 flex flex-col", "space-y-5")}>
+        <h2 className={twMerge("text-5xl font-extrabold text-black")}>
+          Search Books
+        </h2>
+        <div className={twMerge("flex flex-row justify-between", "w-full")}>
           <FilterSidebar filters={filters} setFilters={setFilters} />
-        </div>
+          <div className={twMerge("w-1", "bg-darkerSecondary")} />
 
-        {/* Right side: Results */}
-        <div className="w-full sm:w-3/4">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            Results for: Ini Judul
-          </h2>
-
-          {/* Display Book Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {dummyBooks.map((book, index) => (
-              <div className="w-[260px]">
+          <div className={twMerge("flex flex-col")}>
+            <div className={twMerge("grid grid-cols-3 gap-6")}>
+              {booksData?.books?.map((book) => (
                 <BookCard
-                  key={index}
+                  key={book._id}
                   title={book.title}
                   author={book.author}
                   stock={book.stock}
                   imageUrl={book.imageUrl}
+                  bookId={book._id}
                 />
-              </div>
-            ))}
+              ))}
+            </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="text-lg font-semibold text-black">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    // <div
-    //   className={twMerge("w-full h-full", "flex justify-center items-center")}
-    // >
-    //   <h1 className="text-2xl text-black font-bold">Search Page</h1>
-    // </div>
   );
 }
