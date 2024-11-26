@@ -55,23 +55,54 @@ export const SearchBooks = async (page, limit, search) => {
       limit: limit.toString(),
     });
 
-    if (search.title) {
-      params.append("title", search.title);
-    }
-    if (search.genre) {
-      params.append("genre", search.genre);
-    }
-    if (search.language) {
-      params.append("language", search.language);
-    }
-    if (search.author) {
-      params.append("author", search.author);
+    if (search) {
+      if (search.title) {
+        params.append("title", search.title);
+      }
+      if (search.genre) {
+        params.append("genre", search.genre);
+      }
+      if (search.language) {
+        params.append("language", search.language);
+      }
+      if (search.author) {
+        params.append("author", search.author);
+      }
     }
 
     const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/search?${params.toString()}`;
 
-    const response = await axios.get(endpoint, { withCredentials: true });
+    const response = await axios.get(endpoint, {
+      withCredentials: true,
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    });
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const GetBorrowingHistory = async (page, limit) => {
+  try {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/records?${params.toString()}`;
+
+    const response = await axios.get(
+      endpoint,
+      {
+        withCredentials: true,
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      },
+    );
     return response.data;
   } catch (error) {
     throw error;

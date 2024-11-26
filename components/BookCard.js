@@ -1,5 +1,6 @@
 "use client";
 
+import { ConvertDate } from "@/helpers/convert-date";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
@@ -10,9 +11,16 @@ export default function BookCard({
   stock,
   imageUrl,
   bookId,
+  borrowDate,
+  dueDate,
   isDashboard,
+  isCustomer,
+  status,
 }) {
   const router = useRouter();
+
+  const BorrowDate = ConvertDate(borrowDate);
+  const DueDate = ConvertDate(dueDate);
 
   const handleBookClick = () => {
     if (isDashboard) {
@@ -50,7 +58,14 @@ export default function BookCard({
       <div className="relative text-left">
         <p className="text-lg font-bold text-gray-800">{title}</p>
         <p className="text-sm font-semibold text-gray-600">{author}</p>
-        <p className="text-sm text-gray-500">Stock: {stock}</p>
+        {!isCustomer && <p className="text-sm text-gray-500">Stock: {stock}</p>}
+        {isCustomer && (
+          <>
+            <p className="text-sm text-gray-500">Borrow Date: {BorrowDate}</p>
+            <p className="text-sm text-gray-500">Due Date: {DueDate}</p>
+            <p className="mt-2 text-lg text-black">Status: <span className="font-bold">{status.toUpperCase()}</span></p>
+          </>
+        )}
         {isDashboard && (
           <div className={twMerge("absolute bottom-0 right-0", "mt-5")}>
             <button

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/components/all-pages/navbar";
 import Footer from "@/components/all-pages/footer";
+import { ToasterProvider } from "@/providers/toast-provider";
 
 // Font Lato
 const lato = localFont({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body
         className={twMerge(lato.className, "antialiased overflow-x-hidden")}
       >
+        <ToasterProvider />
         <main
           className={twMerge(
             "flex flex-col",
