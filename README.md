@@ -90,7 +90,7 @@ Server akan berjalan di port default, misalnya `http://localhost:3000`.
 
 ##  Link Video dan PPT 🔗
 
-Link Video =>
+[Link Video](https://drive.google.com/drive/folders/1I4WM3vfKYiDnzmn7u58MaKwb_DzlUuJH?usp=sharing)
 
 Link PPT =>
 
