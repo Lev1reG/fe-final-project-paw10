@@ -22,6 +22,8 @@ BookNest adalah sebuah aplikasi manajemen perpustakaan berbasis web yang diranca
 
 ## Backend Setup 🔧
 
+[Github Repository Backend](https://github.com/Lev1reG/be-final-project-paw10)
+
 Untuk menjalankan backend terlebih dahulu:
 
 1. Pastikan Node.js dan npm sudah terinstal di sistem Anda.
