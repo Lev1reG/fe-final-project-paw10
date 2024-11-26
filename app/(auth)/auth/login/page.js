@@ -1,13 +1,44 @@
-'use client'; // Tambahkan ini jika menggunakan App Directory
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState } from "react";
+import Image from "next/image";
+import { useForm, Controller } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { LoginUser } from "@/db/authentication";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const [passwordVisible, setPasswordVisible] = useState(false); // State untuk kontrol visibilitas password
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible); // Toggle password visibility
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      await toast.promise(LoginUser(data), {
+        loading: "Signing In...",
+        success: "Sign in success",
+        error: (err) => {
+          if (err.response && err.response.data && err.response.data.message) {
+            return `Error: ${err.response.data.message}`;
+          } else {
+            return `Error: ${err.message}`;
+          }
+        },
+      });
+
+      router.push("/dashboard");
+    } catch (err) {
+      // Additional error handling if needed
+    }
   };
 
   return (
@@ -30,21 +61,44 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-gray-800 text-center">
             Log In
           </h1>
-          <form className="w-full max-w-lg mx-auto">
+          <form
+            className="w-full max-w-lg mx-auto"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {/* Username Field */}
             <div className="mb-4 sm:mb-6">
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-sm sm:text-base font-medium text-gray-700"
               >
-                Username or email address
+                Email address
               </label>
-              <input
-                type="text"
-                id="username"
-                className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
-                placeholder="Enter your username"
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    id="email"
+                    className={`mt-2 block w-full p-3 border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
+                    placeholder="Enter your email"
+                  />
+                )}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Password Field */}
@@ -56,11 +110,20 @@ export default function Home() {
                 Your Password
               </label>
               <div className="relative">
-                <input
-                  type={passwordVisible ? 'text' : 'password'} // Dinamis visibilitas
-                  id="password"
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
-                  placeholder="Enter your password"
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Password is required" }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type={passwordVisible ? "text" : "password"} // Dinamis visibilitas
+                      id="password"
+                      className={`mt-2 block w-full p-3 border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
+                      placeholder="Enter your password"
+                    />
+                  )}
                 />
                 <button
                   type="button"
@@ -68,12 +131,17 @@ export default function Home() {
                   className="absolute right-4 top-3 text-black-400"
                 >
                   <Image
-                    src={passwordVisible ? '/images/pw1.png' : '/images/pw.png'} // Kondisional gambar
-                    alt={passwordVisible ? 'Hide password' : 'Show password'}
+                    src={passwordVisible ? "/images/pw1.png" : "/images/pw.png"} // Kondisional gambar
+                    alt={passwordVisible ? "Hide password" : "Show password"}
                     width={24}
                     height={24}
                   />
                 </button>
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -87,14 +155,8 @@ export default function Home() {
           </form>
 
           {/* Links */}
-          <div className="mt-6 text-center text-sm text-black">
-            <a href="#" className="underline">
-              Forgot your password?
-            </a>
-          </div>
           <div className="mt-2 text-center text-sm text-black">
-            Don’t have an account?{' '}
-            <a href="#" className="underline font-medium">
+            <a href="/auth/signup" className="underline font-medium">
               Sign Up
             </a>
           </div>
