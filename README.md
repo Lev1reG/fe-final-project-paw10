@@ -10,7 +10,7 @@
 
 ## Overview Aplikasi BookNest 📖
 
-BookNest adalah aplikasi manajemen perpustakaan berbasis web yang dirancang dengan dua peran pengguna: admin dan peminjam/pengunjung. Admin memiliki akses untuk menambah dan memperbarui data buku, sementara peminjam dapat mencari, meminjam, dan mengembalikan buku. Aplikasi ini juga dilengkapi dengan fitur pencarian buku yang canggih, pembaruan ketersediaan buku secara real-time, serta antarmuka yang user-friendly, untuk mempermudah pengelolaan perpustakaan dan meningkatkan pengalaman pengguna.
+BookNest adalah sebuah aplikasi manajemen perpustakaan berbasis web yang dirancang untuk mendukung dua jenis peran pengguna, yaitu admin dan peminjam/pengunjung. Aplikasi ini memberikan admin kemampuan untuk mengelola perpustakaan dengan efisien, seperti menambahkan, memperbarui, dan menghapus data buku. Sementara itu, peminjam dapat dengan mudah mencari, meminjam, serta mengembalikan buku yang tersedia. Aplikasi ini juga dilengkapi dengan fitur pencarian buku yang canggih, pembaruan ketersediaan buku secara real-time, serta antarmuka yang user-friendly, untuk mempermudah pengelolaan perpustakaan dan meningkatkan pengalaman pengguna.
 
 ## Pembagian Tugas 📋
 
