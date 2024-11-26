@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <>
             {/* Navbar */}
-            <nav className="fixed w-full bg-secondary px-8 py-3 flex justify-between items-center shadow-md">
+            <nav className="fixed z-20 w-full bg-secondary px-8 py-3 flex justify-between items-center shadow-md">
                 {/* Logo Gambar */}
                 <Link href="/" passHref>
                     <img
