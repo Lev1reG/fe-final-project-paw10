@@ -1,45 +1,56 @@
 "use client";
 
+import { LogoutUser } from "@/db/authentication";
+import { useSession } from "@/providers/session-provider";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const NavBar = () => {
-    const { register, handleSubmit } = useForm();
+  const { session } = useSession();
 
-    // Temporary variable for login state
-    const isLogin = true; // Change this value to test the behavior
+  const isLogin = session.status === "authenticated";
 
-    const handleSearch = (data) => {
-        console.log(data);
-        // You can add your search logic here
-    };
+  console.log(session);
 
-    return (
-        <>
-            {/* Navbar */}
-            <nav className="fixed z-20 w-full bg-secondary px-8 py-3 flex justify-between items-center shadow-md">
-              <div className="flex flex-row items-center gap-4">
-                {/* Logo Gambar */}
-                <Link href="/" passHref>
-                    <img
-                        src="/images/paw.png" // Path gambar logo
-                        alt="Kelompok 10 Logo"
-                        className="cursor-pointer h-10 w-auto" // Ukuran logo disesuaikan dengan navbar
-                    />
-                </Link>
-                <Link
-                  href="/search"
-                  className="text-sm font-bold text-black bg-white px-4 py-2 rounded-md border border-black hover:bg-gray-200"
-                >
-                  Search for books
-                </Link>
-              </div>
-              
-              <div className="text-4xl font-bold text-accent">
-                PAW Kelompok 10
-              </div>
-                {/* Search Bar */}
-                {/* <form
+  const handleLogout = async () => {
+    try {
+      await toast
+        .promise(LogoutUser(), {
+          loading: "Logging out...",
+          success: "Logged out successfully",
+          error: "Failed to log out",
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    } catch (error) {}
+  };
+
+  return (
+    <>
+      {/* Navbar */}
+      <nav className="fixed z-20 w-full bg-secondary px-8 py-3 flex justify-between items-center shadow-md">
+        <div className="flex flex-row items-center gap-4">
+          {/* Logo Gambar */}
+          <Link href="/" passHref>
+            <img
+              src="/images/paw.png" // Path gambar logo
+              alt="Kelompok 10 Logo"
+              className="cursor-pointer h-10 w-auto" // Ukuran logo disesuaikan dengan navbar
+            />
+          </Link>
+          <Link
+            href="/search"
+            className="text-sm font-bold text-black bg-white px-4 py-2 rounded-md border border-black hover:bg-gray-200"
+          >
+            Search for books
+          </Link>
+        </div>
+
+        <div className="text-4xl font-bold text-accent">PAW Kelompok 10</div>
+        {/* Search Bar */}
+        {/* <form
                     onSubmit={handleSubmit(handleSearch)}
                     className="flex items-center rounded-full shadow-sm border border-darkerSecondary w-[30%]"
                 >
@@ -70,43 +81,43 @@ const NavBar = () => {
                     </button>
                 </form> */}
 
-                {/* Links */}
-                <div className="flex flex-row items-center gap-4">
-                  {isLogin ? (
-                          <>
-                          <Link
-                          href="/dashboard"
-                          className="text-sm font-semibold text-white bg-accent px-4 py-2 rounded-md hover:opacity-80"
-                          >
-                              Dashboard
-                          </Link>
-                          <Link
-                          href="/auth/login"
-                          className="text-sm font-semibold text-error bg-white px-4 py-2 rounded-md border border-error hover:bg-gray-200"
-                          >
-                              Log Out
-                          </Link>
-                          </>              
-                      ) : (
-                          <>
-                            <Link
-                                href="/auth/login"
-                                className="text-sm font-semibold text-black bg-white px-4 py-2 rounded-md border border-black hover:bg-gray-200"
-                            >
-                                Masuk
-                            </Link>
-                            <Link
-                                href="/auth/register"
-                                className="text-sm font-semibold text-white bg-accent px-4 py-2 rounded-md hover:opacity-80"
-                            >
-                                Daftar
-                            </Link>
-                          </>
-                      )}
-                </div>
-            </nav>
-        </>
-    );
+        {/* Links */}
+        <div className="flex flex-row items-center gap-4">
+          {isLogin ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="text-sm font-semibold text-white bg-accent px-4 py-2 rounded-md hover:opacity-80"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-semibold text-error bg-white px-4 py-2 rounded-md border border-error hover:bg-gray-200"
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="text-sm font-semibold text-black bg-white px-4 py-2 rounded-md border border-black hover:bg-gray-200"
+              >
+                Masuk
+              </Link>
+              <Link
+                href="/auth/register"
+                className="text-sm font-semibold text-white bg-accent px-4 py-2 rounded-md hover:opacity-80"
+              >
+                Daftar
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+    </>
+  );
 };
 
 export default NavBar;

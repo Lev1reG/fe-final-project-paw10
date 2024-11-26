@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/components/all-pages/navbar";
 import Footer from "@/components/all-pages/footer";
 import { ToasterProvider } from "@/providers/toast-provider";
+import { SessionProvider } from "@/providers/session-provider";
 
 // Font Lato
 const lato = localFont({
@@ -27,16 +28,13 @@ export default function RootLayout({ children }) {
         className={twMerge(lato.className, "antialiased overflow-x-hidden")}
       >
         <ToasterProvider />
-        <main
-          className={twMerge(
-            "flex flex-col",
-            "w-[100vw]",
-          )}
-        >
-          <NavBar />
-          {children}
-          <Footer />
-        </main>
+        <SessionProvider>
+          <main className={twMerge("flex flex-col", "w-[100vw]")}>
+            <NavBar />
+            {children}
+            <Footer />
+          </main>
+        </SessionProvider>
       </body>
     </html>
   );

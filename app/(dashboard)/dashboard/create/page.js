@@ -1,10 +1,7 @@
-import { CreateBookForm } from "@/components/create-book-form"
+import { CreateBookForm } from "@/components/create-book-form";
 
 const BookFormPage = () => {
-    return (
-        <CreateBookForm/>
-    )
+  return <CreateBookForm />;
+};
 
-}
-
-export default BookFormPage
+export default BookFormPage;

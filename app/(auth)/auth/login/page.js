@@ -23,19 +23,25 @@ export default function Home() {
 
   const onSubmit = async (data) => {
     try {
-      await toast.promise(LoginUser(data), {
-        loading: "Signing In...",
-        success: "Sign in success",
-        error: (err) => {
-          if (err.response && err.response.data && err.response.data.message) {
-            return `Error: ${err.response.data.message}`;
-          } else {
-            return `Error: ${err.message}`;
-          }
-        },
-      });
-
-      router.push("/dashboard");
+      await toast
+        .promise(LoginUser(data), {
+          loading: "Signing In...",
+          success: "Sign in success",
+          error: (err) => {
+            if (
+              err.response &&
+              err.response.data &&
+              err.response.data.message
+            ) {
+              return `Error: ${err.response.data.message}`;
+            } else {
+              return `Error: ${err.message}`;
+            }
+          },
+        })
+        .then(() => {
+          window.location.reload();
+        });
     } catch (err) {
       // Additional error handling if needed
     }
