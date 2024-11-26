@@ -2,12 +2,17 @@
 
 import { ErrorPage } from "@/components/all-pages/error-page";
 import { Loading } from "@/components/all-pages/loading";
-import { GetBookById } from "@/db/books";
+import { BorrowBook, GetBookById } from "@/db/books";
+import { useSession } from "@/providers/session-provider";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function BookPage() {
+  const { session } = useSession();
+  const router = useRouter();
+
   const { bookId } = useParams(); // Mengambil bookId dari parameter URL
   const [bookData, setBookData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +32,7 @@ export default function BookPage() {
     };
 
     fetchBook();
-  }, []);
+  }, [bookId]);
 
   if (error) {
     return <ErrorPage message={error.message} />;
@@ -36,6 +41,27 @@ export default function BookPage() {
   if (loading) {
     return <Loading />;
   }
+
+  const handleBorrow = async () => {
+    if (session.status !== "authenticated") {
+      router.push("/auth/login");
+    }
+    toast
+      .promise(BorrowBook(bookId), {
+        loading: "Borrowing book...",
+        success: "Book borrowed successfully!",
+        error: (err) => {
+          if (err.response && err.response.data && err.response.data.message) {
+            return `Error: ${err.response.data.message}`;
+          } else {
+            return `Error: ${err.message}`;
+          }
+        },
+      })
+      .then(() => {
+        router.push("/dashboard");
+      });
+  };
 
   return (
     <section className="w-full min-h-screen flex flex-col bg-primary p-4 sm:p-8">
@@ -57,7 +83,10 @@ export default function BookPage() {
             <p className="mt-2 font-bold text-gray-700">
               Stock: {bookData.stock}
             </p>
-            <button className="mt-4 px-6 py-2 w-full border rounded-lg bg-[#013A63] font-bold text-white hover:bg-[#012A48]">
+            <button
+              onClick={handleBorrow}
+              className="mt-4 px-6 py-2 w-full border rounded-lg bg-[#013A63] font-bold text-white hover:bg-[#012A48]"
+            >
               Borrow
             </button>
           </div>

@@ -108,3 +108,28 @@ export const GetBorrowingHistory = async (page, limit) => {
     throw error;
   }
 };
+
+export const BorrowBook = async (bookId) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${bookId}/borrow`,
+      { withCredentials: true },
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const ReturnBook = async (bookId) => {
+  try {
+    const response = await axios.get( 
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${bookId}/return`,
+      { withCredentials: true },
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error; 
+  }
+}

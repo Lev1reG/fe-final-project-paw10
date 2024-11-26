@@ -2,6 +2,7 @@
 
 import { LogoutUser } from "@/db/authentication";
 import { useSession } from "@/providers/session-provider";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -34,8 +35,10 @@ const NavBar = () => {
         <div className="flex flex-row items-center gap-4">
           {/* Logo Gambar */}
           <Link href="/" passHref>
-            <img
+            <Image
               src="/images/paw.png" // Path gambar logo
+              width={250}
+              height={200}
               alt="Kelompok 10 Logo"
               className="cursor-pointer h-10 w-auto" // Ukuran logo disesuaikan dengan navbar
             />

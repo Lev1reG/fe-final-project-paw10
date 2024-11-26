@@ -25,20 +25,20 @@ export const DashboardCustomer = () => {
     setValue,
   } = useForm();
 
-  const getBooks = async () => {
-    setLoading(true);
-    try {
-      const records = await GetBorrowingHistory(currentPage,4);
-      setBooksData(records);
-      setTotalPages(records.pagination.totalPages);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getBooks = async () => {
+      setLoading(true);
+      try {
+        const records = await GetBorrowingHistory(currentPage, 4);
+        setBooksData(records);
+        setTotalPages(records.pagination.totalPages);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     getBooks();
   }, [currentPage]);
 
@@ -74,58 +74,58 @@ export const DashboardCustomer = () => {
         <h1 className={twMerge("text-5xl font-extrabold text-black")}>
           Hello, {username}!
         </h1>
-          <div
-            style={{
-              boxShadow: "0px 4px 4px 2px rgba(0, 0, 0, 0.25)",
-            }}
-            className={twMerge(
-              "flex flex-col",
-              "w-full p-7",
-              "bg-white",
-              "rounded-3xl",
-              "space-y-5",
-            )}
-          >
-            <h2 className={twMerge("text-4xl font-semibold text-black")}>
-              Borrowed Books
-            </h2>
-            <div className={twMerge("flex flex-col")}>
-              <div className={twMerge("grid grid-cols-4 gap-6")}>
-                {booksData?.records?.map((book) => (
-                  <BookCard
-                    key={book.book._id}
-                    title={book.book.title}
-                    author={book.book.author}
-                    imageUrl={book.book.imageUrl}
-                    borrowDate={book.borrowDate}
-                    dueDate={book.dueDate}
-                    bookId={book.book._id}
-                    status={book.status}
-                    isCustomer
-                  />
-                ))}
-              </div>
-              {/* Pagination Controls */}
-              <div className="flex justify-center items-center gap-4 mt-8">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                <span className="text-lg font-semibold text-black">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
-                >
-                  Next
-                </button>
-              </div>
+        <div
+          style={{
+            boxShadow: "0px 4px 4px 2px rgba(0, 0, 0, 0.25)",
+          }}
+          className={twMerge(
+            "flex flex-col",
+            "w-full p-7",
+            "bg-white",
+            "rounded-3xl",
+            "space-y-5",
+          )}
+        >
+          <h2 className={twMerge("text-4xl font-semibold text-black")}>
+            Borrowed Books
+          </h2>
+          <div className={twMerge("flex flex-col")}>
+            <div className={twMerge("grid grid-cols-4 gap-6")}>
+              {booksData?.records?.map((book) => (
+                <BookCard
+                  key={book.book._id}
+                  title={book.book.title}
+                  author={book.book.author}
+                  imageUrl={book.book.imageUrl}
+                  borrowDate={book.borrowDate}
+                  dueDate={book.dueDate}
+                  bookId={book.book._id}
+                  status={book.status}
+                  isCustomer
+                />
+              ))}
             </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="text-lg font-semibold text-black">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-darkerSecondary rounded hover:opacity-90 disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { LoginUser } from "@/db/authentication";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -162,9 +163,9 @@ export default function Home() {
 
           {/* Links */}
           <div className="mt-2 text-center text-sm text-black">
-            <a href="/auth/signup" className="underline font-medium">
+            <Link href="/auth/signup" className="underline font-medium">
               Sign Up
-            </a>
+            </Link>
           </div>
         </div>
       </div>

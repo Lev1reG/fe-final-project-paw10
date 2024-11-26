@@ -70,12 +70,6 @@ const DashboardAdmin = () => {
       }
     };
 
-    // TODO : Fetch user data from API
-    setValue("fullName", "Joko Subianto");
-    setValue("username", "xX_ThePresident_Xx");
-    setValue("email", "presiden.indonesia@gmail.com");
-    setValue("phoneNumber", "081420911690");
-
     getLibraryStats();
   }, []);
 
