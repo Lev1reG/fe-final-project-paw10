@@ -20,31 +20,70 @@ BookNest adalah sebuah aplikasi manajemen perpustakaan berbasis web yang diranca
 4. Muhammad Rafli Ramadani => UI dan Front end
 5. Satama Safika => UI dan Front end
 
+## Backend Setup 🔧
+
+Untuk menjalankan backend terlebih dahulu:
+
+1. Pastikan Node.js dan npm sudah terinstal di sistem Anda.
+2. Clone repository backend dengan perintah berikut:
+   ```bash
+   git clone https://github.com/Lev1reG/be-final-project-paw10.git
+   ```
+3. Masuk ke folder proyek backend:
+   ```bash
+   cd be-final-project-paw10
+   ```
+4. Buat file `.env` di dalam folder proyek dan tambahkan variabel berikut:
+   ```env
+   MONGODB_URI=your_mongodb_uri_here
+   CRYPTO_SECRET=your_crypto_secret_here
+   JWT_VERIFICATION_SECRET=your_jwt_verification_secret_here
+   ```
+5. Install dependencies yang dibutuhkan:
+   ```bash
+   npm install
+   ```
+6. Jalankan server backend:
+   ```bash
+   npm run start
+   ```
+   Server akan berjalan di port default, misalnya `http://localhost:5000`.
+
+Setelah backend berjalan, Anda dapat melanjutkan dengan menjalankan server frontend menggunakan panduan pada bagian **Getting Started**.
+
 ## Getting Started 💻
-First, run the development server:
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-````
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-## Learn More
-To learn more about Next.js, take a look at the following resources:
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-## Deploy on Vercel
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Untuk menjalankan server frontend:
+
+1. Pastikan Node.js dan npm sudah terinstal di sistem Anda.
+2. Clone repository frontend dengan perintah berikut:
+   ```bash
+   git clone https://github.com/Lev1reG/fe-final-project-paw10.git
+   ```
+3. Masuk ke folder proyek frontend:
+   ```bash
+   cd fe-final-project-paw10
+   ```
+4. Buat file `.env.local` di dalam folder proyek dan tambahkan variabel berikut:
+   ```env
+   NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
+   ```
+5. Install dependencies yang dibutuhkan:
+   ```bash
+   npm install
+   ```
+6. Jalankan server frontend:
+   ```bash
+   npm run dev
+   ```
+
+Server akan berjalan di port default, misalnya `http://localhost:3000`.
 
 ## Teknologi 🌐
 ![Tools](Tools.png)
 
 ##  Link Deployment BookNest 🔗
+[BookNest Deployment](https://www.booknest.web.id/)
 
 
 ##  Link Video dan PPT 🔗
