@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { RegisterUser } from "@/db/authentication";
 import { useRouter } from "next/navigation";
 
