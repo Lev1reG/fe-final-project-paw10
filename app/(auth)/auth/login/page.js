@@ -23,21 +23,25 @@ export default function Home() {
 
   const onSubmit = async (data) => {
     try {
-      await toast.promise(LoginUser(data), {
-        loading: "Signing In...",
-        success: "Sign in success",
-        error: (err) => {
-          if (err.response && err.response.data && err.response.data.message) {
-            return `Error: ${err.response.data.message}`;
-          } else {
-            return `Error: ${err.message}`;
-          }
-        },
-      });
-
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
+      await toast
+        .promise(LoginUser(data), {
+          loading: "Signing In...",
+          success: "Sign in success",
+          error: (err) => {
+            if (
+              err.response &&
+              err.response.data &&
+              err.response.data.message
+            ) {
+              return `Error: ${err.response.data.message}`;
+            } else {
+              return `Error: ${err.message}`;
+            }
+          },
+        })
+        .then(() => {
+          window.location.reload();
+        });
     } catch (err) {
       // Additional error handling if needed
     }
@@ -91,9 +95,7 @@ export default function Home() {
                     {...field}
                     type="text"
                     id="email"
-                    className={`mt-2 block w-full p-3 border ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
+                    className={`mt-2 block w-full p-3 border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
                     placeholder="Enter your email"
                   />
                 )}
@@ -124,9 +126,7 @@ export default function Home() {
                       {...field}
                       type={passwordVisible ? "text" : "password"} // Dinamis visibilitas
                       id="password"
-                      className={`mt-2 block w-full p-3 border ${
-                        errors.password ? "border-red-500" : "border-gray-300"
-                      } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
+                      className={`mt-2 block w-full p-3 border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black`}
                       placeholder="Enter your password"
                     />
                   )}
