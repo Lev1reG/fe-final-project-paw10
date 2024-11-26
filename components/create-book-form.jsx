@@ -35,7 +35,7 @@ export const CreateBookForm = () => {
     };
 
     return (
-      <section className="w-full min-h-screen flex flex-col bg-[#F9F6EE] p-8">
+      <section className="w-full min-h-screen flex flex-col bg-[#F9F6EE] py-28 px-8">
         {/* Container for the form */}
         <div className="flex flex-col lg:flex-row gap-8 justify-between">
           {/* Left Card: Book Cover and Update Button */}
@@ -62,10 +62,10 @@ export const CreateBookForm = () => {
   
               {/* Title */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Book Title</label>
+                <label className="block text-sm font-bold text-gray-700">Book Title</label>
                 <input
                   {...register("title", { required: "Book title is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter book title"
                 />
                 {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
@@ -73,10 +73,10 @@ export const CreateBookForm = () => {
   
               {/* Author */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Book Author</label>
+                <label className="block text-sm font-bold text-gray-700">Book Author</label>
                 <input
                   {...register("author", { required: "Author is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter book author"
                 />
                 {errors.author && <p className="text-red-500 text-sm mt-1">{errors.author.message}</p>}
@@ -84,10 +84,10 @@ export const CreateBookForm = () => {
   
               {/* Description */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Description</label>
+                <label className="block text-sm font-bold text-gray-700">Description</label>
                 <textarea
                   {...register("description", { required: "Description is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter book description"
                 />
                 {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
@@ -95,10 +95,10 @@ export const CreateBookForm = () => {
   
               {/* Genre */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Genre</label>
+                <label className="block text-sm font-bold text-gray-700">Genre</label>
                 <input
                   {...register("genre", { required: "Genre is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter book genre"
                 />
                 {errors.genre && <p className="text-red-500 text-sm mt-1">{errors.genre.message}</p>}
@@ -106,10 +106,10 @@ export const CreateBookForm = () => {
   
               {/* Language */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Language</label>
+                <label className="block text-sm font-bold text-gray-700">Language</label>
                 <input
                   {...register("language", { required: "Language is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter book language"
                 />
                 {errors.language && <p className="text-red-500 text-sm mt-1">{errors.language.message}</p>}
@@ -117,10 +117,10 @@ export const CreateBookForm = () => {
   
               {/* Publisher */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Publisher</label>
+                <label className="block text-sm font-bold text-gray-700">Publisher</label>
                 <input
                   {...register("publisher", { required: "Publisher is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter publisher"
                 />
                 {errors.publisher && <p className="text-red-500 text-sm mt-1">{errors.publisher.message}</p>}
@@ -128,10 +128,10 @@ export const CreateBookForm = () => {
   
               {/* Year Published */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Year Published</label>
+                <label className="block text-sm font-bold text-gray-700">Year Published</label>
                 <input
                   {...register("year", { required: "Year is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter year published"
                 />
                 {errors.year && <p className="text-red-500 text-sm mt-1">{errors.year.message}</p>}
@@ -139,10 +139,10 @@ export const CreateBookForm = () => {
   
               {/* ISBN */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">ISBN</label>
+                <label className="block text-sm font-bold text-gray-700">ISBN</label>
                 <input
                   {...register("isbn", { required: "ISBN is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter ISBN"
                 />
                 {errors.isbn && <p className="text-red-500 text-sm mt-1">{errors.isbn.message}</p>}
@@ -150,10 +150,10 @@ export const CreateBookForm = () => {
   
               {/* Stock */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Stock</label>
+                <label className="block text-sm font-bold text-gray-700">Stock</label>
                 <input
                   {...register("stock", { required: "Stock is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter stock quantity"
                 />
                 {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock.message}</p>}
@@ -161,10 +161,10 @@ export const CreateBookForm = () => {
   
               {/* Cover Image URL */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Cover Image URL</label>
+                <label className="block text-sm font-bold text-gray-700">Cover Image URL</label>
                 <input
                   {...register("coverImageURL", { required: "Cover image URL is required" })}
-                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm"
+                  className="mt-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-black"
                   placeholder="Enter cover image URL"
                 />
                 {errors.coverImageURL && <p className="text-red-500 text-sm mt-1">{errors.coverImageURL.message}</p>}
