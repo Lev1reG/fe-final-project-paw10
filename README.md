@@ -92,7 +92,7 @@ Server akan berjalan di port default, misalnya `http://localhost:3000`.
 
 [Link Video](https://drive.google.com/drive/folders/1I4WM3vfKYiDnzmn7u58MaKwb_DzlUuJH?usp=sharing)
 
-Link PPT =>
+[Link PPT](https://www.canva.com/design/DAGXl8cGVeQ/LJbCAnNfBj5KpmlBPJMkzg/edit?utm_content=DAGXl8cGVeQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 
 
